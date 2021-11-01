@@ -21,9 +21,9 @@ async function fetchProducts(query){
     let res;
 
     if(query){
-        res = await fetch(`http://localhost:3000/products/${query}`);
+        res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/${query}`);
     } else {
-        res = await fetch(`http://localhost:3000/products/`)
+        res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/`)
     }
 
     let results = await res.json();
