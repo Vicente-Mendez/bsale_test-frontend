@@ -4,7 +4,7 @@
     "description": "This will load any static html site",
     "main": "main.js",
     "scripts": {
-      "start": "harp server --port 80"
+      "start": "harp server --port 3001"
     },
     "dependencies": {
       "harp": "*"
