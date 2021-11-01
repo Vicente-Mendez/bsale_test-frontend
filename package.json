@@ -2,9 +2,9 @@
     "name": "bsalefrontend",
     "version": "1.0.0",
     "scripts": {
-      "start": "harp server --port $PORT"
+        "start": "harp server --port $PORT"
     },
     "dependencies": {
-      "harp": "*"
+        "harp": "^0.41.0"
     }
-  }
+}
