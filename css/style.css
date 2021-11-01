@@ -1,0 +1,24 @@
+.navbar-brand {
+    font-size:150%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-left: auto;
+}
+a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 90%;
+}
+
+.img {
+    height: 300px;
+    width: 100%;
+}
+body {
+    background-color: rgba(241, 243, 245, 0.959);
+}
+
+.gif-spinner img{
+    width: 40px;
+}
+.info-display{
+    background-color: white;
+}
