@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "This will load any static html site",
     "scripts": {
-      "start": "harp server --port $PORT"
+      "start": "harp server --port 5501"
     },
     "dependencies": {
       "harp": "*"
