@@ -1,8 +1,10 @@
 const proSearch = document.getElementById('pro-search')
+const cmbCategory = document.getElementById('combo-box')
 const output = document.getElementById('output')
 
 window.addEventListener("load",() => {
     fetchProducts();
+    fillComboBox();
 })
 
 proSearch.addEventListener('change', () => {
@@ -12,18 +14,42 @@ proSearch.addEventListener('change', () => {
     fetchProducts(searchQuery);
 });
 
+cmbCategory.addEventListener('change', () => {
+    let searchQuery = cmbCategory.value;
+    console.log(searchQuery)
+    loader();
+    fetchProductsByCategory(searchQuery);
+});
+
 function loader(){
     output.innerHTML = '<div class="gif-spinner mx-auto"><img src="img/loader.webp"></img></div>'
 }
+
+async function fillComboBox (){
+    res = await fetch(`http://localhost:3000/categories/`)
+    let results = await res.json();
+
+    if (results.categories){
+        let categories = results.categories
+        values = Object.values(categories);
+    }
+        if(values){
+            values.map(category => {
+                console.log("category", category)
+                comboBoxOptions(category.id,category.name);
+        })}
+
+    }
+
 
 
 async function fetchProducts(query){
     let res;
 
     if(query){
-        res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/${query}`);
-    } else {
-        res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/`)
+        res = await fetch(`http://localhost:3000/products/${query}`);
+    }else{
+        res = await fetch(`http://localhost:3000/products/`);
     }
 
     let results = await res.json();
@@ -31,13 +57,12 @@ async function fetchProducts(query){
     let array = [];
 
     if (results.products){
-        let asd = results.products
-        values = Object.values(asd);
+        let products = results.products
+        values = Object.values(products);
     }else{
-        let asd = results.product
+        let products = results.product
 
-        array.push(asd)
-        console.log("asd", values)
+        array.push(products)
     }
 
 
@@ -45,19 +70,41 @@ async function fetchProducts(query){
 
     if(values){
         values.map(product => {
-            dataCard(product.url_image,product.name,product.price);
+            dataCard(product.url_image,product.name,product.price,product.category);
     })}
     if(array){
         array.map(product => {
-            dataCard(product.url_image,product.name,product.price);
+            dataCard(product.url_image,product.name,product.price,product.category);
     }
-        )}}
+    )}}
 
-    function dataCard(url_image, name, price ){
+    async function fetchProductsByCategory(query){
+        let res;
+        if(query){
+            res = await fetch(`http://localhost:3000/products/category/${query}`);
+        }
+        let results = await res.json();
+
+        let products = results.products
+        values = Object.values(products);
+
+        output.innerHTML = "";
+
+        if(values){
+            values.map(product => {
+                dataCard(product.url_image,product.name,product.price,product.category);
+        })}
+
+    }
+
+    
+    
+function dataCard(url_image, name, price, category ){
         const htmlString = `<img src="${url_image}" class="img">
                 <div class="info-display">
                     <h5>Nombre: ${name}</h5>
                     <h6>Precio: <span>${price}</span></h6>
+                    <h6>Categoria: <span>${category}</span></h6>
                 </div>`;
                 
                 let outputString = document.createElement('div');
@@ -66,3 +113,11 @@ async function fetchProducts(query){
                 output.appendChild(outputString);
     
         }
+function comboBoxOptions(id, name){
+    var opt = document.createElement('option');
+    opt.value = id;
+    opt.innerHTML = name.toUpperCase();
+    cmbCategory.appendChild(opt);
+}
+
+
