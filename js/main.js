@@ -13,6 +13,12 @@ proSearch.addEventListener('change', () => {
     loader();
     fetchProducts(searchQuery);
 });
+proSearch.addEventListener('click', () => {
+    let searchQuery = proSearch.value;
+    console.log(searchQuery)
+    loader();
+    fetchProducts(searchQuery);
+});
 
 cmbCategory.addEventListener('change', () => {
     let searchQuery = cmbCategory.value;
@@ -26,7 +32,7 @@ function loader(){
 }
 
 async function fillComboBox (){
-    res = await fetch(`http://localhost:3000/categories/`)
+    res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/categories/`)
     let results = await res.json();
 
     if (results.categories){
@@ -47,9 +53,9 @@ async function fetchProducts(query){
     let res;
 
     if(query){
-        res = await fetch(`http://localhost:3000/products/${query}`);
+        res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/${query}`);
     }else{
-        res = await fetch(`http://localhost:3000/products/`);
+        res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/`);
     }
 
     let results = await res.json();
@@ -81,7 +87,7 @@ async function fetchProducts(query){
     async function fetchProductsByCategory(query){
         let res;
         if(query){
-            res = await fetch(`http://localhost:3000/products/category/${query}`);
+            res = await fetch(`https://bsaleapi-heroku-vicente.herokuapp.com/products/category/${query}`);
         }
         let results = await res.json();
 
